@@ -184,7 +184,7 @@ var deleteTask = function (taskId) {
 
   for (var i = 0; i < tasks.length; i++) {
     // if tasks[i].id doesn't match the value of taskId, let's keep that task!
-    if (task[i].id !== parseInt(taskId)) {
+    if (tasks[i].id !== parseInt(taskId)) {
       updatedTaskArr.push(tasks[i]);
     }
   }
@@ -260,6 +260,21 @@ var taskButtonHandler = function (event) {
 //saveTasks
 var saveTasks = function () {
   localStorage.setItem("tasks", JSON.stringify(tasks));
+};
+var loadTasks = function () {
+  tasks = localStorage.getItem("tasks");
+  var savedTasks = localStorage.getItem("tasks");
+
+  if (!savedTasks) {
+    tasks = [];
+    return false;
+  }
+  savedTasks = JSON.parse(savedTasks);
+  //looping through savedTasks array
+  for (var i = 0; i < savedTasks.length; i++) {
+    //pass each task object into the 'createTaskEl() function
+    createTaskEl(saveTasks[i]);
+  }
 };
 //using the variable for button, add event listener for "click", run the createTaskHandler function
 formEl.addEventListener("submit", taskFormHandler);
